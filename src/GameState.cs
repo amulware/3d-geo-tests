@@ -14,7 +14,12 @@ namespace Game
 
         public GameState()
         {
-            
+            for (int x = 0; x < 10; x++)
+            {
+                new MeshInstance(this,
+                    SurfaceManager.Instance.Mesh, SurfaceManager.Instance.MeshTransform,
+                    new Vector3(0, 0, x * 4 - 20), 0.03f);
+            }
         }
 
         public void Add(GameObject gameObject)

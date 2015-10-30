@@ -33,8 +33,10 @@ namespace Game
                 this.resize(width, height);
             }
 
-            GL.ClearColor(0.2f, 0.2f, 0.2f, 0);
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Enable(EnableCap.DepthTest);
+
+            GL.ClearColor(0.2f, 0.5f, 0.2f, 0);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
         private void resize(int width, int height)
@@ -67,8 +69,10 @@ namespace Game
 
         public void Draw(GameState game)
         {
-            this.surfaces.ModelviewMatrix.Matrix = Matrix4.LookAt(
-                new Vector3(0, 0, 50), new Vector3(0, 0, 0), new Vector3(0, 1, 0)
+            this.surfaces.ModelviewMatrix.Matrix =
+                Matrix4.CreateRotationY((float)game.Time.NumericValue) *
+                Matrix4.LookAt(
+                new Vector3(0, 0, 30), new Vector3(0, 0, 0), new Vector3(0, 1, 0)
                 );
 
             game.Render();
@@ -76,9 +80,6 @@ namespace Game
 
         public void FinaliseFrame()
         {
-            SurfaceDepthMaskSetting.DontMask.Set(null);
-            SurfaceBlendSetting.PremultipliedAlpha.Set(null);
-
             this.surfaces.Primitives.Render();
             this.surfaces.Text.Render();
         }
