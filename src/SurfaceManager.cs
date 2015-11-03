@@ -44,7 +44,7 @@ namespace Game
 
             var mesh = obj.ToMesh();
 
-            this.Mesh = mesh.ToIndexedSurface();
+            this.Mesh = mesh.ToIndexedSurface<MeshVertex>();
             this.Mesh.AddSettings(this.ProjectionMatrix, this.ModelviewMatrix, this.MeshTransform);
             this.Mesh.ClearOnRender = false;
             shaderMan["mesh"].UseOnSurface(this.Mesh);
